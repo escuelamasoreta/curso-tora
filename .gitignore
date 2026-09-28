@@ -1,0 +1,17 @@
+# Solo se publica lo que la landing necesita (lista blanca)
+/*
+!/.gitignore
+!/.nojekyll
+!/index.html
+!/styles.css
+!/script.js
+!/assets/
+
+/assets/*
+!/assets/favicon.svg
+!/assets/logo-escuela-masoreta.svg
+!/assets/fondo-hero.webp
+!/assets/foto-pastor.webp
+!/assets/historia.webp
+!/assets/foto-perfil-reuven.webp
+!/assets/og-image.jpg

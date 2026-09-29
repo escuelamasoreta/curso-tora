@@ -12,7 +12,7 @@
   /* ---------- Pixel de Meta ----------
      Pega aquí el ID de tu Pixel (solo números) para activarlo.
      Registra "PageView" al cargar y "Lead" en cada clic a WhatsApp. */
-  const META_PIXEL_ID = "";
+  const META_PIXEL_ID = "2587852578380294";
 
   if (META_PIXEL_ID) {
     !function (f, b, e, v, n, t, s) {

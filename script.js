@@ -152,11 +152,78 @@
       update();
     }).observe(hero);
 
-    if (finalCta) {
-      new IntersectionObserver(([entry]) => {
-        finalVisible = entry.isIntersecting;
+    // Se oculta desde el CTA final hasta el pie (incluye la sección de ofrendas)
+    const finalZone = [finalCta, document.getElementById("ofrendas")].filter(Boolean);
+    const visibleZones = new Set();
+    if (finalZone.length) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visibleZones.add(entry.target);
+          else visibleZones.delete(entry.target);
+        });
+        finalVisible = visibleZones.size > 0;
         update();
-      }).observe(finalCta);
+      });
+      finalZone.forEach((el) => observer.observe(el));
     }
   }
+
+  /* ---------- Ofrendas: copiar datos al portapapeles ---------- */
+  const toast = document.querySelector("[data-toast]");
+  let toastTimer;
+
+  const showToast = (message) => {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.classList.add("is-visible");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("is-visible"), 1800);
+  };
+
+  const copyText = async (text) => {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+    // Respaldo para navegadores sin API de portapapeles
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    const ok = document.execCommand("copy");
+    area.remove();
+    if (!ok) throw new Error("copy failed");
+  };
+
+  document.querySelectorAll("[data-copy]").forEach((btn) => {
+    const label = btn.querySelector(".copy-btn__label");
+    const original = label ? label.textContent : "";
+    let resetTimer;
+
+    btn.addEventListener("click", async () => {
+      try {
+        await copyText(btn.dataset.copy);
+        btn.classList.add("is-copied");
+        if (label) label.textContent = "¡Copiado!";
+        showToast(`¡Copiado! ${btn.dataset.copy}`);
+        if (window.fbq) fbq("trackCustom", "CopiarDatoOfrenda");
+      } catch (err) {
+        showToast("No se pudo copiar. Mantén presionado el dato para copiarlo.");
+      }
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        btn.classList.remove("is-copied");
+        if (label) label.textContent = original;
+      }, 2000);
+    });
+  });
+
+  document.querySelectorAll('[data-give="paypal"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      if (window.fbq) fbq("track", "Donate");
+    });
+  });
 })();

@@ -806,6 +806,279 @@ p { margin: 0; }
   letter-spacing: 0.03em;
 }
 
+/* ---------- Ofrendas ---------- */
+.offering {
+  background:
+    radial-gradient(ellipse 50% 40% at 85% 10%, rgba(255, 193, 7, 0.08), transparent 70%),
+    var(--navy-deep);
+}
+
+/* Divisor dorado en lugar del cian, para marcar que es otro tipo de bloque */
+.offering::before {
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  box-shadow: 0 0 14px rgba(255, 193, 7, 0.6);
+}
+
+.offering__intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.offering__photo {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255, 193, 7, 0.45);
+  box-shadow: 0 0 50px rgba(255, 193, 7, 0.12);
+}
+
+.offering__photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  object-position: 50% 25%;
+}
+
+.offering__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.offering__note {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  padding-left: 14px;
+  border-left: 3px solid var(--gold);
+}
+
+.offering__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.give-card,
+.bank-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px 24px;
+  border-radius: var(--radius);
+  background: var(--navy-card);
+  border: 1px solid rgba(0, 229, 255, 0.35);
+}
+
+.give-card__title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+}
+
+.give-card__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: rgba(0, 229, 255, 0.12);
+  color: var(--neon);
+  flex-shrink: 0;
+}
+
+.give-card__icon svg { width: 22px; height: 22px; }
+
+.give-card__text { color: var(--text-muted); }
+
+.give-card__btn { align-self: flex-start; }
+
+.give-card__fine {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: auto;
+}
+
+.give-card__fine--strong {
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* Botón dorado (ofrendas): distinto del verde de WhatsApp para no competir con la conversión */
+.btn--gold {
+  background: var(--gold);
+  color: var(--navy);
+  box-shadow: 0 10px 28px rgba(255, 193, 7, 0.25);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn--gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 34px rgba(255, 193, 7, 0.38);
+  }
+}
+
+/* Campo con valor + botón copiar */
+.copy-field {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0;
+  padding: 10px 10px 10px 16px;
+  border-radius: 12px;
+  background: rgba(4, 12, 31, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  min-width: 0;
+}
+
+.copy-field__value {
+  font-weight: 600;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.copy-field__value--mono {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--neon);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 120ms var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.copy-btn:active { transform: scale(0.96); }
+
+.copy-btn:focus-visible {
+  outline: 2px solid var(--neon);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .copy-btn:hover { background: rgba(0, 229, 255, 0.12); }
+}
+
+.copy-btn__icon { width: 16px; height: 16px; }
+
+.copy-btn.is-copied {
+  background: var(--whatsapp);
+  border-color: var(--whatsapp);
+  color: #fff;
+}
+
+/* Tarjeta bancaria destacada */
+.bank-card {
+  border-color: rgba(255, 193, 7, 0.5);
+  box-shadow: 0 0 40px rgba(255, 193, 7, 0.08);
+}
+
+.bank-card__head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.bank-card__list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 20px;
+  margin: 0;
+}
+
+.bank-card__row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.bank-card__row--wide { grid-column: 1 / -1; }
+
+.bank-card__row dt {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.bank-card__row dd { margin: 0; }
+
+.bank-card__row dd:not(.copy-field) { padding: 10px 0; }
+
+/* Cita final */
+.offering__verse {
+  margin: 56px auto 0;
+  max-width: 680px;
+  text-align: center;
+}
+
+.offering__verse p {
+  font-style: italic;
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.offering__verse cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Aviso "¡Copiado!" */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 80;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--whatsapp);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  opacity: 0;
+  transform: translate(-50%, 12px);
+  transition: opacity 200ms ease, transform 200ms var(--ease-out);
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 /* ---------- Footer ---------- */
 .footer {
   background: var(--navy-deep);
@@ -871,6 +1144,8 @@ p { margin: 0; }
   .benefits__visual { max-height: 380px; }
 
   .instructor__grid { gap: 36px; }
+
+  .offering__intro { grid-template-columns: 1fr; gap: 32px; }
 }
 
 @media (max-width: 720px) {
@@ -891,6 +1166,16 @@ p { margin: 0; }
   .cards { grid-template-columns: 1fr; }
 
   .syllabus__list { grid-template-columns: 1fr; }
+
+  .offering__grid,
+  .bank-card__list { grid-template-columns: 1fr; }
+
+  .give-card__btn { align-self: stretch; }
+
+  .give-card,
+  .bank-card { padding: 24px 18px; }
+
+  .toast { bottom: 96px; }
 
   .syllabus__cta .btn { width: 100%; }
 
